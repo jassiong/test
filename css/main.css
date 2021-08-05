@@ -132,3 +132,74 @@ span, button {
     position: absolute;
     top: 0;
 }
+
+
+
+.cart .container-fluid {
+    background-color: #eee;
+    height: 80vh;
+}
+.cart .col-12 {
+    background-color: white;
+}
+.cart .ttile {
+    color: #333;
+    position: absolute;
+    height: 24px;
+    line-height: 24px;
+    padding-left: 10px;
+    max-width: calc(100% - 100px);
+}
+.cart .cart_edit button.edit {
+    color: #666;
+    position: absolute;
+    height: 24px;
+    line-height: 24px;
+    padding-left: 10px;
+    right: 10;
+}
+.cart .cart_edit span:first-child,
+.cart .cart_detail span:first-child {
+    color: #bfbfbf;
+}
+.cart .cart_edit span:nth-child(2) {
+    color: #666;
+}
+
+.cart .cart_detail,
+.cart .cart_detail_img,
+.cart .cart_detail_text {
+    display: inline-block;
+    position: relative;
+}
+.cart .cart_detail_img {
+    width: 100px;
+}
+.cart .cart_detail_text {
+    top: 24px;
+}
+.cart .bottom .confirm {
+    color: white;
+    background-color: #ef3333;
+    border: 1px solid #ab1212;
+    float: right;
+    padding: 8px 10px;
+    border-radius: 5px;
+}
+.cart .bottom .total {
+    color: #666;
+    float: right;
+    margin-right: 10px;
+    font-size: 20px;
+    line-height: 39px;
+}
+.cart .bottom .total span {
+    color: #ef3333;
+}
+.cart .bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    padding: 10px;
+}

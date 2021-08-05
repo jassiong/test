@@ -77,7 +77,7 @@ var list= new Vue({
                 };
                 this.$http.post('http://125.228.2.127/interview/RtyW0804/list.php', postData, {emulateJSON:true})
                 .then((res) => {
-                    if(res.body.length){
+                    if(typeof res.body == 'object'){
                         this.list = res.body;
                     }
                 });
