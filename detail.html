@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+        <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="css/main.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/vue.js"></script>
+        <script src="js/vue-resource.min.js"></script>
+
+    </head>
+    <body>
+        <div class="detail">
+            <div class="navbar">
+                <div class="justify-content-end align-items-center">
+                    <button type="button"><span class="material-icons">arrow_back</span></button>
+                    <!-- <span class="material-icons search">search</span><input class="search_input"> -->
+                    <button type="button"><span class="material-icons">more_horiz</span></button>
+                    <button type="button" @click="addCart()"><span class="material-icons">shopping_cart</span></button>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <img class="img" :src="detail.img">
+                        <div class="pname">{{detail.name}}</div>
+                        <div class="price">${{detail.price}}</div>
+                        <div class="pbottom">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+var detail =  new Vue({
+        el: '.detail',
+        data: {
+            detail: {
+                "no": "",
+                "name": "",
+                "img": "",
+                "price": ""
+            },
+        },
+        watch: {},
+        created: function(){
+            var url = new URL(window.location.href);
+            var no = url.searchParams.get("no");
+            this.getDetail(no);
+        },
+        computed: {},
+        methods:{
+            // 取得明細
+            getDetail: function(no){
+                var postData = {
+                    "action": "GetDetail",
+                    "table": "testproductdata",
+                    "no": no||"P00001"
+                };
+                this.$http.post('http://125.228.2.127/interview/RtyW0804/detail.php', postData, {emulateJSON:true})
+                .then((res) => {
+                    if(res.body.length>0){
+                        this.detail = res.body[0];
+                    }
+                });
+            },
+            // 加入購物車
+            addCart: function(no){
+                var postData = {
+                    "action" : "Add",
+                    "table" : "testcartdata",
+                    "colume":{
+                		"mobile":"0916020378",
+                        "pno" : this.detail.no,
+                        "pimg" : this.detail.img,
+                        "pname" : this.detail.name,
+                		"pprice" : this.detail.price,
+                		"pnum" : 1
+                    },
+                    "redirect":"http://www.google.com"
+                };
+                this.$http.post('http://125.228.2.127/interview/RtyW0804/add.php', postData, {emulateJSON:true})
+                .then((res) => {
+                    if(res.body.length>0){
+                        alert(res.body.msg);
+                    }
+                });
+            },
+        },
+    })
+</script>

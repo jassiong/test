@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+        <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="css/main.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/vue.js"></script>
+        <script src="js/vue-resource.min.js"></script>
+
+    </head>
+    <body>
+        <div class="index">
+            <div class="navbar">
+                <div class="justify-content-end align-items-center">
+                    <button type="button"><span class="material-icons">arrow_back</span></button>
+                    <span class="material-icons search">search</span><input class="search_input">
+                    <button type="button"><span class="material-icons">filter_alt</span>篩選</button>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="collapse show navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item bind_log action">
+                            <a class="nav-link bind_log" href="#">綜合排名</a>
+                        </li>
+                        <li class="nav-item bind_log">
+                            <a class="nav-link bind_log" href="#">最新</a>
+                        </li>
+                        <li class="nav-item bind_log">
+                            <a class="nav-link bind_log" href="#">最熱銷</a>
+                        </li>
+                        <li class="nav-item bind_log">
+                            <a class="nav-link bind_log" href="#">價格</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-6" v-for="detail in list" @click="goDetail(detail.no)">
+                        <img class="img" :src="detail.img">
+                        <div class="pname">{{detail.name}}</div>
+                        <div class="price">${{detail.price}}</div>
+                        <div class="pbottom">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+var list= new Vue({
+        el: '.index',
+        data: {
+            list: [],
+        },
+        watch: {},
+        created: function(){
+            this.getList();
+        },
+        computed: {},
+        methods:{
+            // 取得列表
+            getList: function(){
+                var postData = {
+                    "action": "GetList",
+                    "table": "testproductdata"
+                };
+                this.$http.post('http://125.228.2.127/interview/RtyW0804/list.php', postData, {emulateJSON:true})
+                .then((res) => {
+                    if(res.body.length){
+                        this.list = res.body;
+                    }
+                });
+            },
+            goDetail: function(no){
+                window.location = 'detail.html?no='+(no!==undefined?no:'');
+            }
+        },
+    })
+</script>

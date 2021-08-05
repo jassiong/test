@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&display=swap");
+@font-face {
+  font-family: "Roboto-Regular";
+  src: url("../fonts/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto-Medium";
+  src: url("../fonts/Roboto-Medium.ttf");
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto-Regular", "Noto Sans TC", "微軟正黑體", sans-serif;
+  font-weight: 400;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #F5F8FC;
+  color: #ff3729;
+  height: 1.2rem;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-size: 0.875rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+a {
+  display: inline-block;
+}
+
+a,
+a:hover,
+a:focus {
+  color: #333;
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+}
+
+button {
+  background-color: transparent;
+  border: 0px;
+}
+button:focus, input:focus {
+  outline: none;
+}
+span, button {
+    color: #ff3729;
+}
+
+
+
+
+.index {
+    margin: auto;
+    width: 100%;
+}
+.navbar>div{
+    width: 100%;
+}
+.search {
+    color: #999;
+    background-color: #e2e2e2;
+    padding: 5px;
+}
+.search_input {
+    position: relative;
+    top: -6px;
+    width: calc(100% - 150px);
+    border: 0;
+    color: #999;
+    background-color: #e2e2e2;
+    padding: 5px;
+    height: 34px;
+}
+.nav {
+    display: inline-block;
+}
+.nav li {
+    display: inline-block;
+    padding: 5px 10px;
+    color: #999;
+}
+.nav li a {
+    color: #999;
+}
+.nav li.action a {
+    color: #ff3729;
+}
+
+.pname {
+    height: 42px;
+    word-wrap:break-word;
+    overflow : hidden;
+    text-overflow : ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: #4c4c56;
+}
+.detail .navbar {
+    z-index: 1;
+}
+.detail .navbar button {
+    border-radius: 50px;
+    opacity: 0.5;
+    background-color: #333;
+    float: right;
+    padding: 5px;
+    margin-right: 5px;
+}
+.detail .navbar button:first-child {
+    float: none;
+    margin-right: 0;
+}
+.detail .navbar .material-icons {
+    color: white;
+}
+
+.detail .container-fluid{
+    position: absolute;
+    top: 0;
+}
