@@ -24,8 +24,7 @@
                     <button type="button"><span class="material-icons">filter_alt</span>篩選</button>
                 </div>
             </div>
-            <div class="container-fluid">
-                <div class="collapse show navbar-collapse">
+            <div class="collapse show navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="nav-item bind_log action">
                             <a class="nav-link bind_log" href="#">綜合排名</a>
@@ -41,14 +40,28 @@
                         </li>
                     </ul>
                 </div>
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-6" v-for="detail in list" @click="goDetail(detail.no)">
-                        <img class="img" :src="detail.img">
-                        <div class="pname">{{detail.name}}</div>
-                        <div class="price">${{detail.price}}</div>
-                        <div class="pbottom">
-                            <span></span>
-                            <span></span>
+                    <div class="col-6" v-for="detail in list">
+                        <img class="img" :src="detail.img" @click="goDetail(detail.no)">
+                        <div class="pinfo">
+                            <div class="pname">{{detail.name}}</div>
+                            <div class="price">${{detail.price}}</div>
+                            <div class="pbottom clearfix">
+                                <div class="like">
+                                    <button type="button" @click="setFavorite(detail.no)">
+                                        <span class="material-icons" v-show="favorites.indexOf(detail.no)===-1">favorite_border</span>
+                                        <span class="material-icons" v-show="favorites.indexOf(detail.no)!==-1">favorite</span>
+                                    </button>
+                                </div>
+                                <div class="rate">
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,10 +71,36 @@
 </html>
 
 <script>
-var list= new Vue({
+    var list= new Vue({
         el: '.index',
         data: {
-            list: [],
+            list: [
+                {
+                    "no": "P00001",
+                    "name": "Total機油",
+                    "img": "http://125.228.2.127/interview/img/total.jpg",
+                    "price": "200"
+                },
+                {
+                    "no": "P00002",
+                    "name": "Total2機油",
+                    "img": "http://125.228.2.127/interview/img/total2.jpg",
+                    "price": "300"
+                },
+                {
+                    "no": "P00003",
+                    "name": "Total3機油",
+                    "img": "http://125.228.2.127/interview/img/total3.jpg",
+                    "price": "450"
+                },
+                {
+                    "no": "P00004",
+                    "name": "Total4機油",
+                    "img": "http://125.228.2.127/interview/img/total4.jpg",
+                    "price": "650"
+                }
+            ],
+            favorites: ["P00001"],
         },
         watch: {},
         created: function(){
@@ -84,7 +123,16 @@ var list= new Vue({
             },
             goDetail: function(no){
                 window.location = 'detail.html?no='+(no!==undefined?no:'');
-            }
+            },
+            setFavorite: function(no){
+                var index = this.favorites.indexOf(no);
+                if(index===-1){
+                    this.favorites.push(no);
+                }
+                else{
+                    this.favorites.splice(index,1);
+                }
+            },
         },
     })
 </script>

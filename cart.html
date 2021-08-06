@@ -19,21 +19,20 @@
         <div class="cart">
             <div class="navbar">
                 <div class="justify-content-end align-items-center">
-                    <button type="button"><span class="material-icons">arrow_back</span></button>
+                    <button type="button" @click="goBack()"><span class="material-icons">arrow_back</span></button>
                     <span class="ttile">購物車</span>
                 </div>
             </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12" v-for="detail in cart" @click="goDetail(detail.no)">
-                    <!-- <div class="col-12"> -->
-                        <div class="cart_edit">
+                    <div class="col-12" v-for="(detail, index) in cart" @click="goDetail(detail.no)">
+                        <div class="cart_edit" v-show="index==0">
                             <span class="material-icons">check_box_outline_blank</span>
                             <span class="material-icons">storefront</span>
                             <span class="ttile">TOTAL</span>
                             <button type="button" class="edit">編輯</button>
                         </div>
-                        <div class="cart_detail">
+                        <div class="cart_detail clearfix">
                             <span class="material-icons">check_box_outline_blank</span>
                             <div class="cart_detail_img">
                                 <img class="img" :src="detail.pimg">
@@ -45,11 +44,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="free_info">
+                        <span class="material-icons">savings</span>
+                        訂單滿 2,000，賣家宅配免運費。
+                    </div>
                 </div>
 
+                <div class="bottom_coupon">
+                    <div class="title"><span class="material-icons">confirmation_number</span>全站折價券</div>
+                    <div class="info"><button>選擇折價券或輸入全站折扣碼<span class="material-icons">chevron_right</span><button></div>
+                </div>
+                <div class="bottom_discount">
+                    <div class="title"><span class="material-icons">monetization_on</span>使用蝦幣折抵</div>
+                    <div class="info">
+                        <button @click="discount=!discount" class="turn" :class="discount?'on':''"><lable></lable></button>
+                    </div>
+                </div>
                 <div class="bottom">
                     <button class="confirm">結帳</button>
-                    <div class="total">總金額<span>${{cart.length>0?cart[0].total:0}}</span></div>
+                    <div class="total">總金額<span>${{cart.reduce((a,b)=>a+(parseInt(b.total)||0),0)}}</span></div>
                 </div>
             </div>
         </div>
@@ -60,17 +73,29 @@
 var cart = new Vue({
         el: '.cart',
         data: {
-            cart: [],
-            // detail: {
-            //     "mobile": "0966888888",
-            //     "pimg": "http://125.228.2.127/interview/img/total3.jpg",
-            //     "pno": "P00003",
-            //     "pname": "Total1機油",
-            //     "pprice": "200",
-            //     "pnum": "6",
-            //     "total": "1200",
-            //     "cTime": "2021-08-04 12:02:32"
-            // }
+            cart: [
+                {
+                    "mobile": "0916020378",
+                    "pimg": "http://125.228.2.127/interview/img/total.jpg",
+                    "pno": "P00001",
+                    "pname": "Total機油",
+                    "pprice": "200",
+                    "pnum": "1",
+                    "total": "200",
+                    "cTime": "2021-08-04 17:20:15"
+                },
+                {
+                    "mobile": "0916020378",
+                    "pimg": "http://125.228.2.127/interview/img/total2.jpg",
+                    "pno": "P00002",
+                    "pname": "Total機油2",
+                    "pprice": "300",
+                    "pnum": "1",
+                    "total": "300",
+                    "cTime": "2021-08-05 20:06:47"
+                }
+            ],
+            discount: false,
         },
         watch: {},
         created: function(){
@@ -91,7 +116,10 @@ var cart = new Vue({
                         this.cart = res.body;
                     }
                 });
-            }
+            },
+            goBack: function(){
+                history.go(-1);
+            },
         },
     })
 </script>

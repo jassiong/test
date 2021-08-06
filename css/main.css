@@ -18,7 +18,7 @@ html, body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: #F5F8FC;
+  background-color: #efefef;
   color: #ff3729;
   height: 1.2rem;
 }
@@ -61,23 +61,31 @@ span, button {
 
 
 
-
-.index {
-    margin: auto;
-    width: 100%;
+.container-fluid {
+    max-width: 600px;
+}
+.navbar {
+    padding: 10px;
+    padding-bottom: 5px;
+}
+.navbar button:first-child{
+    padding-left: 0;
+}
+.navbar button:last-child{
+    padding-right: 0;
 }
 .navbar>div{
     width: 100%;
 }
-.search {
+.navbar .search {
     color: #999;
     background-color: #e2e2e2;
     padding: 5px;
 }
-.search_input {
+.navbar .search_input {
     position: relative;
     top: -6px;
-    width: calc(100% - 150px);
+    width: calc(100% - 130px);
     border: 0;
     color: #999;
     background-color: #e2e2e2;
@@ -98,7 +106,16 @@ span, button {
 .nav li.action a {
     color: #ff3729;
 }
+.collapse {
+    overflow: hidden;
+    white-space: nowrap;
+}
 
+
+.pinfo {
+    background-color: white;
+    padding: 10px;
+}
 .pname {
     height: 42px;
     word-wrap:break-word;
@@ -108,6 +125,54 @@ span, button {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     color: #4c4c56;
+}
+.pbottom .rate span {
+    display: block;
+    float:left;
+    font-size: 11px;
+    color: yellow;
+    line-height: 24px;
+}
+.pbottom .rate span.rate_point {
+    color: #ff3729;
+}
+.pbottom .like button span:first-child {
+    color: #999;
+}
+
+.index {
+    margin: auto;
+    width: 100%;
+}
+.index .navbar {
+
+    background-color: white;
+}
+.index .col-6 {
+    padding-left: 0px;
+    padding-right: 5px;
+    margin-bottom: 10px;
+}
+.index .col-6:nth-child(even) {
+    padding-left: 5px;
+    padding-right: 0px;
+}
+.index .pbottom .rate {
+    float: right;
+}
+.index .pbottom .like {
+    float: left;
+}
+
+
+.detail .col-12 {
+    padding: 0;
+}
+.detail .pbottom .rate {
+    float: left;
+}
+.detail .pbottom .like {
+    float: right;
 }
 .detail .navbar {
     z-index: 1;
@@ -119,6 +184,7 @@ span, button {
     float: right;
     padding: 5px;
     margin-right: 5px;
+    position: relative;
 }
 .detail .navbar button:first-child {
     float: none;
@@ -127,12 +193,63 @@ span, button {
 .detail .navbar .material-icons {
     color: white;
 }
+.detail .navbar button .number {
+    position: absolute;
+    background-color: #ff3729;
+    color: #FFF;
+    width: 21px;
+    height: 21px;
+    left: -10;
+    bottom: -2;
+    border-radius: 15px;
+    opacity: 0.9;
+}
 
 .detail .container-fluid{
     position: absolute;
     top: 0;
 }
-
+.detail .row{
+    margin-bottom: 70px;
+}
+.detail .bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    width: 100%;
+}
+.detail .bottom button {
+    display: block;
+    float: left;
+    font-size: 11px;
+    color: white;
+    background-color: #00bfa5;
+    padding: 5px 0;
+}
+.detail .bottom button:hover {
+    background-color: #009883;
+}
+.detail .bottom button.chat {
+    width: 80px;
+}
+.detail .bottom button.add_cart {
+    width: 100px;
+}
+.detail .bottom button.buy_now {
+    line-height: 34px;
+    height: 44px;
+    width: calc(100% - 180px);
+    background-color: #ee4d2d;
+}
+.detail .bottom button.buy_now:hover {
+    background-color: #c73f24;
+}
+.detail .bottom button span {
+    display: block;
+    color: white;
+    font-size: 16px;
+}
 
 
 .cart .container-fluid {
@@ -141,6 +258,7 @@ span, button {
 }
 .cart .col-12 {
     background-color: white;
+    padding: 0;
 }
 .cart .ttile {
     color: #333;
@@ -149,6 +267,10 @@ span, button {
     line-height: 24px;
     padding-left: 10px;
     max-width: calc(100% - 100px);
+}
+.cart .cart_edit {
+    padding: 5px 10px 0;
+    border-bottom: 1px solid #e0e0e0;
 }
 .cart .cart_edit button.edit {
     color: #666;
@@ -166,17 +288,111 @@ span, button {
     color: #666;
 }
 
-.cart .cart_detail,
-.cart .cart_detail_img,
-.cart .cart_detail_text {
-    display: inline-block;
-    position: relative;
+.cart .cart_detail {
+    width: 100%;
+    padding: 5px 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.cart .cart_detail>* {
+    float: left;
 }
 .cart .cart_detail_img {
     width: 100px;
 }
 .cart .cart_detail_text {
-    top: 24px;
+    width: calc(100% - 125px);
+}
+.cart .free_info {
+    background-color: #FFF;
+    width: 100%;
+    padding: 5px;
+    font-size: 12px;
+    color: #666;
+}
+.cart .free_info span {
+    color: #00bfa5;
+    font-size: 16px;
+    position: relative;
+    top: 3px;
+}
+
+.cart .bottom_coupon,
+.cart .bottom_discount,
+.cart .bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    padding: 10px;
+    background-color: #FFF;
+}
+.cart .bottom_discount,
+.cart .bottom_coupon {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 5px;
+    color: #666;
+    font-size: 12px;
+}
+.cart .bottom_discount {
+    bottom: 59;
+}
+.cart .bottom_coupon {
+    bottom: 91;
+}
+.cart .bottom_discount .title,
+.cart .bottom_coupon .title {
+    line-height: 20px;
+    float: left;
+}
+.cart .bottom_discount .info,
+.cart .bottom_coupon .info {
+    line-height: 20px;
+    float: right;
+}
+.cart .bottom_discount .info button,
+.cart .bottom_coupon .info button {
+    color: #666;
+}
+.cart .bottom_discount .info button.turn {
+    width: 42px;
+    height: 21px;
+    background-color: #999;
+    border-radius: 15px;
+    padding: 0;
+}
+.cart .bottom_discount .info button.turn lable {
+    display: block;
+    width: 21px;
+    height: 21px;
+    background-color: white;
+    border: 1px solid #999;
+    border-radius: 15px;
+    position: relative;
+    left: 0;
+}
+.cart .bottom_discount .info button.turn.on {
+    transition: background-color 0.4s;
+    background-color: #62d862;
+}
+.cart .bottom_discount .info button.turn.on lable {
+    transition: left 0.4s;
+    left: calc(100% - 22px);
+}
+.cart .bottom_discount .info span,
+.cart .bottom_coupon .info span,
+.cart .bottom_discount .title span,
+.cart .bottom_coupon .title span {
+    font-size: 16px;
+    position: relative;
+    top: 3;
+    margin-right: 3px;
+    color: #666;
+}
+.cart .bottom_discount .title span {
+    color: #ffba38;
+}
+.cart .bottom_coupon .title span {
+    color: #f24822;
 }
 .cart .bottom .confirm {
     color: white;
@@ -195,11 +411,4 @@ span, button {
 }
 .cart .bottom .total span {
     color: #ef3333;
-}
-.cart .bottom {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    left: 0;
-    padding: 10px;
 }

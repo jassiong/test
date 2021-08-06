@@ -19,24 +19,46 @@
         <div class="detail">
             <div class="navbar">
                 <div class="justify-content-end align-items-center">
-                    <button type="button"><span class="material-icons">arrow_back</span></button>
+                    <button type="button" @click="goList()"><span class="material-icons">arrow_back</span></button>
                     <!-- <span class="material-icons search">search</span><input class="search_input"> -->
                     <button type="button"><span class="material-icons">more_horiz</span></button>
-                    <button type="button" @click="addCart()"><span class="material-icons">shopping_cart</span></button>
+                    <button type="button" @click="goCart()">
+                        <span class="material-icons">shopping_cart</span>
+                        <span class="number" v-show="cartNumber>0">{{cartNumber}}</span>
+                    </button>
                 </div>
             </div>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <img class="img" :src="detail.img">
-                        <div class="pname">{{detail.name}}</div>
-                        <div class="price">${{detail.price}}</div>
-                        <div class="pbottom">
-                            <span></span>
-                            <span></span>
+                        <div class="pinfo">
+                            <div class="pname">{{detail.name}}</div>
+                            <div class="price">${{detail.price}}</div>
+                            <div class="pbottom clearfix">
+                                <div class="rate">
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="material-icons">star</span>
+                                    <span class="rate_point">5.0</span>
+                                </div>
+                                <div class="like">
+                                    <button type="button" @click="favorite=!favorite">
+                                        <span class="material-icons" v-show="!favorite">favorite_border</span>
+                                        <span class="material-icons" v-show="favorite">favorite</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="bottom clearfix">
+                <button type="button" class="chat"><span class="material-icons">forum</span>聊聊</button>
+                <button type="button" class="add_cart" @click="addCart()"><span class="material-icons">add_shopping_cart</span>加入購物車</button>
+                <button type="button" class="buy_now" @click="addCart(1)">直接結帳</button>
             </div>
         </div>
     </body>
@@ -47,11 +69,13 @@ var detail =  new Vue({
         el: '.detail',
         data: {
             detail: {
-                "no": "",
-                "name": "",
-                "img": "",
-                "price": ""
+                "no": "P00002",
+                "name": "Total2機油",
+                "img": "http://125.228.2.127/interview/img/total2.jpg",
+                "price": "300"
             },
+            favorite: false,
+            cartNumber: 0,
         },
         watch: {},
         created: function(){
@@ -76,7 +100,7 @@ var detail =  new Vue({
                 });
             },
             // 加入購物車
-            addCart: function(no){
+            addCart: function(turn){
                 var postData = {
                     "action" : "Add",
                     "table" : "testcartdata",
@@ -92,9 +116,23 @@ var detail =  new Vue({
                 };
                 this.$http.post('http://125.228.2.127/interview/RtyW0804/add.php', postData, {emulateJSON:true})
                 .then((res) => {
-                    alert(res.body.msg);
+                    if(typeof res.body == 'object'){
+                        if(res.body.status=='ok'){
+                            this.cartNumber++;
+                        }
+                        alert(res.body.msg);
+                    }
+                    if(turn==1){
+                        this.goCart();
+                    }
                 });
             },
+            goCart: function(){
+                window.location = 'cart.html';
+            },
+            goList: function(){
+                window.location = 'list.html';
+            }
         },
     })
 </script>
